@@ -1,6 +1,7 @@
 package com.example.tictactoe
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tictactoe.databinding.ActivityMainBinding
@@ -8,7 +9,7 @@ import com.example.tictactoe.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     var binding: ActivityMainBinding? = null
-    private var combinationList: List<IntArray> = ArrayList()
+    private var combinationList: MutableList<IntArray> = mutableListOf()
     private var boxPositions = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0) //9 zero
     private var playerTurn = 1
     private var totalSelectedBoxes = 1
@@ -17,20 +18,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding!!.getRoot());
 
-        combinationList.toMutableList().add(intArrayOf(0,1,2))
-        combinationList.toMutableList().add(intArrayOf(3,4,5))
-        combinationList.toMutableList().add(intArrayOf(6,7,8))
-        combinationList.toMutableList().add(intArrayOf(0,3,6))
-        combinationList.toMutableList().add(intArrayOf(1,4,7))
-        combinationList.toMutableList().add(intArrayOf(2,5,8))
-        combinationList.toMutableList().add(intArrayOf(2,4,6))
-        combinationList.toMutableList().add(intArrayOf(0,4,8))
+        combinationList.add(intArrayOf(0,1,2))
+        combinationList.add(intArrayOf(3,4,5))
+        combinationList.add(intArrayOf(6,7,8))
+        combinationList.add(intArrayOf(0,3,6))
+        combinationList.add(intArrayOf(1,4,7))
+        combinationList.add(intArrayOf(2,5,8))
+        combinationList.add(intArrayOf(2,4,6))
+        combinationList.add(intArrayOf(0,4,8))
+
 
         var getPlayerOneName = intent.getStringExtra("playerOne")
         var getPlayerTwoName = intent.getStringExtra("playerTwo")
 
         binding!!.playerOneName.setText(getPlayerOneName)
         binding!!.playerTwoName.setText(getPlayerTwoName)
+
 
         binding!!.image1.setOnClickListener {
             if (isBoxSelectable(0)) {
@@ -84,7 +87,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun performAction(imageView: ImageView, selectedBoxPosition:Int) {
         boxPositions[selectedBoxPosition] = playerTurn
-
         if(playerTurn == 1) {
             imageView.setImageResource(R.drawable.ximage)
             if(checkResults()) {
@@ -93,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                 resultDialog.show()
             }
             else if(totalSelectedBoxes == 9) {
-                val resultDialog = ResultDialog(this@MainActivity, "Match Draw", this@MainActivity)
+                var resultDialog = ResultDialog(this@MainActivity, "Match Draw", this@MainActivity)
                 resultDialog.setCancelable(false)
                 resultDialog.show()
             }
@@ -110,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 resultDialog.show()
             }
             else if(totalSelectedBoxes == 9) {
-                val resultDialog = ResultDialog(this@MainActivity, "Match Draw", this@MainActivity)
+                var resultDialog = ResultDialog(this@MainActivity, "Match Draw", this@MainActivity)
                 resultDialog.setCancelable(false)
                 resultDialog.show()
             }
@@ -135,8 +137,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkResults(): Boolean {
         var response = false
+        Log.i("print", "i am hear")
         for (i in combinationList.indices) {
-            val combination = combinationList[i]
+            var combination = combinationList[i]
             if (boxPositions[combination[0]] === playerTurn && boxPositions[combination[1]] === playerTurn && boxPositions[combination[2]] === playerTurn) {
                 response = true
             }

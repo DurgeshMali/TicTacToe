@@ -18,8 +18,8 @@ class AddPlayers : AppCompatActivity() {
         var startGameButton = findViewById<Button>(R.id.startGameButton)
 
         startGameButton.setOnClickListener {
-            val getPlayerOneName = playerOne.text.toString()
-            val getPlayerTwoName = playerTwo.text.toString()
+            var getPlayerOneName = playerOne.text.toString()
+            var getPlayerTwoName = playerTwo.text.toString()
             if (getPlayerOneName.isEmpty() || getPlayerTwoName.isEmpty()) {
                 Toast.makeText(this@AddPlayers, "Please enter player name", Toast.LENGTH_SHORT)
                     .show()
