@@ -32,6 +32,53 @@ class MainActivity : AppCompatActivity() {
         binding!!.playerOneName.setText(getPlayerOneName)
         binding!!.playerTwoName.setText(getPlayerTwoName)
 
+        binding!!.image1.setOnClickListener {
+            if (isBoxSelectable(0)) {
+                performAction(it as ImageView, 0)
+            }
+        }
+
+        binding!!.image2.setOnClickListener {
+            if (isBoxSelectable(1)) {
+                performAction(it as ImageView, 1)
+            }
+        }
+        binding!!.image3.setOnClickListener {
+            if (isBoxSelectable(2)) {
+                performAction(it as ImageView, 2)
+            }
+        }
+        binding!!.image4.setOnClickListener {
+            if (isBoxSelectable(3)) {
+                performAction(it as ImageView, 3)
+            }
+        }
+        binding!!.image5.setOnClickListener {
+            if (isBoxSelectable(4)) {
+                performAction(it as ImageView, 4)
+            }
+        }
+        binding!!.image6.setOnClickListener {
+            if (isBoxSelectable(5)) {
+                performAction(it as ImageView, 5)
+            }
+        }
+        binding!!.image7.setOnClickListener {
+            if (isBoxSelectable(6)) {
+                performAction(it as ImageView, 6)
+            }
+        }
+        binding!!.image8.setOnClickListener {
+            if (isBoxSelectable(7)) {
+                performAction(it as ImageView, 7)
+            }
+        }
+        binding!!.image9.setOnClickListener {
+            if (isBoxSelectable(8)) {
+                performAction(it as ImageView, 8)
+            }
+        }
+
 
     }
 
@@ -56,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         else {
-            imageView.setImageResource(R.drawable.ximage)
+            imageView.setImageResource(R.drawable.oimage)
             if(checkResults()) {
                 var resultDialog = ResultDialog(this@MainActivity, binding!!.playerTwoName.text.toString() + " is a Winner!", this@MainActivity)
                 resultDialog.setCancelable(false)
@@ -68,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 resultDialog.show()
             }
             else {
-                changePlayerTurn(2);
+                changePlayerTurn(1);
                 totalSelectedBoxes++;
             }
         }
