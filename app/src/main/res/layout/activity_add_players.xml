@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
+        app:cardElevation="20dp"
+        android:backgroundTint="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,6 +45,7 @@
                 android:maxLines="1"
                 android:textStyle="italic"
                 android:hint="Enter player one name"
+                android:textColorHint="#736D6D"
                 android:textColor="@color/lavender"
                 android:drawableLeft="@drawable/ic_xicon"
                 android:drawablePadding="8dp"/>
@@ -58,6 +60,7 @@
                 android:maxLines="1"
                 android:textStyle="italic"
                 android:hint="Enter player two name"
+                android:textColorHint="#736D6D"
                 android:textColor="@color/lavender"
                 android:drawableLeft="@drawable/ic_oicon"
                 android:drawablePadding="8dp"/>
