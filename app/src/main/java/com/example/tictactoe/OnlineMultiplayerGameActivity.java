@@ -37,7 +37,7 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
     private int totalSelectedBoxes = 1;
     private String gameCode, codeKey, playerName, opponentName, winnerOfTheGame = null;
     private boolean isCodeMaker, isActivityTerminated = false;
-    private boolean gameOver = false;
+    private boolean gameOver = false, soundPlayed = false;
     private ValueEventListener gameListener;
 
     @Override
@@ -92,6 +92,7 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
 
     private void handleClick(View view, int position) {
         if (isBoxSelectable(position) && isCurrentPlayerTurn() && !gameOver) {
+            SoundUtil.playSound(this, R.raw.click_sound); // Play click sound
             performAction((ImageView) view, position);
             updateGameInFirebase();
         }
@@ -108,13 +109,22 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
 
             if (isCodeMaker == (playerTurn == 1)) {
                 winnerOfTheGame = isCodeMaker ? "CodeMaker" : "CodeBreaker";
+                Log.d(TAG, "i am code maker, winner sound");
+                soundPlayed = true;
+                SoundUtil.playSound(this, R.raw.win_sound); // Play win sound
             } else {
                 winnerOfTheGame = isCodeMaker ? "CodeBreaker" : "CodeMaker";
+                Log.d(TAG, "i am not code maker, loser sound");
+                soundPlayed = true;
+                SoundUtil.playSound(this, R.raw.lose_sound); // Play lose sound
             }
 
             updateResultInFirebase(resultMessage, opponentResultMessage);
         } else if (totalSelectedBoxes == 9) {
             gameOver = true;
+            Log.d(TAG, "just draw sound");
+            soundPlayed = true;
+            SoundUtil.playSound(this, R.raw.draw_sound); // Play draw sound
             updateResultInFirebase("Game Draw!", "Game Draw!");
         } else {
             totalSelectedBoxes++;
@@ -174,7 +184,9 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
         boxPositions = Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0);
         totalSelectedBoxes = 1;
         gameOver = false;
+        soundPlayed = false;
         count++;
+
 
         if (winnerOfTheGame != null) {
             if (winnerOfTheGame.equals("CodeMaker")) {
@@ -253,6 +265,19 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
                                     .setValue("");
                         }
 
+                        if(resultMessage != null && !resultMessage.isEmpty()) {
+                            if (resultMessage.contains("You won the game!") && !soundPlayed) {
+                                Log.d(TAG, "setupGameListener --> winer sound");
+                                SoundUtil.playSound(OnlineMultiplayerGameActivity.this, R.raw.win_sound); // Play win sound
+                            } else if (resultMessage.contains("You lost the game!") && !soundPlayed) {
+                                Log.d(TAG, "setupGameListener -->  loser sound");
+                                SoundUtil.playSound(OnlineMultiplayerGameActivity.this, R.raw.lose_sound); // Play lose sound
+                            } else if (resultMessage.equals("Game Draw!") && !soundPlayed) {
+                                Log.d(TAG, "setupGameListener -->  draw sound");
+                                SoundUtil.playSound(OnlineMultiplayerGameActivity.this, R.raw.draw_sound); // Play draw sound
+                            }
+                        }
+
                         // Check if code maker has left the game
                         Boolean codeMakerLeft = snapshot.child("codeMakerLeft").getValue(Boolean.class);
                         if (codeMakerLeft != null && codeMakerLeft && !isCodeMaker) {
@@ -299,56 +324,8 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        Log.d(TAG, "onDestroy()");
-//
-//        // Notify the code joiner that the code maker has left the game
-//        if (isCodeMaker && gameCode != null) {
-//            FirebaseDatabase.getInstance("https://tic-tac-toe-game-3915d-default-rtdb.asia-southeast1.firebasedatabase.app")
-//                    .getReference("games").child(gameCode).child("codeMakerLeft").setValue(true);
-//        }
-//
-//        // Remove game listener from Firebase
-//        if (gameListener != null && gameCode != null) {
-//            FirebaseDatabase.getInstance("https://tic-tac-toe-game-3915d-default-rtdb.asia-southeast1.firebasedatabase.app")
-//                    .getReference("games").child(gameCode).removeEventListener(gameListener);
-//        }
-//
-//        // Remove game data from Firebase
-//        if (isCodeMaker) {
-//            if (gameCode != null && codeKey != null) {
-//                // Remove the game entry from both "games" and "codes" nodes
-//                FirebaseDatabase.getInstance("https://tic-tac-toe-game-3915d-default-rtdb.asia-southeast1.firebasedatabase.app")
-//                        .getReference("games").child(gameCode).removeValue();
-//                FirebaseDatabase.getInstance("https://tic-tac-toe-game-3915d-default-rtdb.asia-southeast1.firebasedatabase.app")
-//                        .getReference("codes").child(codeKey).removeValue();
-//            }
-//        } else {
-//            // Remove the code joiner's name from Firebase
-//            if (gameCode != null) {
-//                FirebaseDatabase.getInstance("https://tic-tac-toe-game-3915d-default-rtdb.asia-southeast1.firebasedatabase.app")
-//                        .getReference("codes").child(gameCode).child("player2").removeValue()
-//                        .addOnCompleteListener(task -> {
-//                            if (!task.isSuccessful()) {
-//                                Log.e(TAG, "Failed to remove player2: " + task.getException());
-//                            }
-//                        });
-//            }
-//        }
-//
-//        // Uninitialize game elements
-//        uninitializeGameElements();
-//        Intent intent = new Intent(OnlineMultiplayerGameActivity.this, OnlineCodeGeneratorActivity.class);
-//        startActivity(intent);
-//        finish();
+        SoundUtil.release(); // Release MediaPlayer resources
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent intent = new Intent(OnlineMultiplayerGameActivity.this, OnlineCodeGeneratorActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
 
     private void uninitializeGameElements() {
         combinationList.clear();

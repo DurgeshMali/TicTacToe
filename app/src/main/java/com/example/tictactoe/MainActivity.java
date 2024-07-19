@@ -1,14 +1,11 @@
 package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.example.tictactoe.databinding.ActivityMainBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,16 +116,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void performAction(ImageView  imageView, int selectedBoxPosition) {
+    private void performAction(ImageView imageView, int selectedBoxPosition) {
         boxPositions[selectedBoxPosition] = playerTurn;
+
+        SoundUtil.playSound(this, R.raw.click_sound);
 
         if (playerTurn == 1) {
             imageView.setImageResource(R.drawable.ximage);
             if (checkResults()) {
+                SoundUtil.playSound(this, R.raw.win_sound);
                 ResultDialog resultDialog = new ResultDialog(MainActivity.this, binding.playerOneName.getText().toString() + " is a Winner!");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
             } else if(totalSelectedBoxes == 9) {
+                SoundUtil.playSound(this, R.raw.draw_sound);
                 ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Match Draw");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
@@ -139,10 +140,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             imageView.setImageResource(R.drawable.oimage);
             if (checkResults()) {
+                SoundUtil.playSound(this, R.raw.win_sound);
                 ResultDialog resultDialog = new ResultDialog(MainActivity.this, binding.playerTwoName.getText().toString() + " is a Winner!");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
             } else if(totalSelectedBoxes == 9) {
+                SoundUtil.playSound(this, R.raw.draw_sound);
                 ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Match Draw");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
@@ -199,5 +202,11 @@ public class MainActivity extends AppCompatActivity {
         binding.image7.setImageResource(R.drawable.white_box);
         binding.image8.setImageResource(R.drawable.white_box);
         binding.image9.setImageResource(R.drawable.white_box);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SoundUtil.release(); // Release MediaPlayer resources
     }
 }

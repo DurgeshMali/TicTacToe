@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +56,7 @@ public class PlayGameWithAI extends AppCompatActivity {
         if (gameState.isValidMove(cell[0], cell[1])) {
             gameState.setMove(cell[0], cell[1], TicTacToeAI.HUMAN);
             updateBoard();
+            SoundUtil.playSound(this, R.raw.click_sound);
             checkGameOver();
 
             if (!isGameOver) {
@@ -64,6 +64,7 @@ public class PlayGameWithAI extends AppCompatActivity {
                 TicTacToeAI ai = new TicTacToeAI();
                 ai.computerMove(gameState);
                 updateBoard();
+                SoundUtil.playSound(this, R.raw.click_sound);
                 checkGameOver();
                 isPlayerTurn = true;
             }
@@ -89,12 +90,15 @@ public class PlayGameWithAI extends AppCompatActivity {
     private void checkGameOver() {
         if (gameState.isWin(TicTacToeAI.HUMAN)) {
             isGameOver = true;
+            SoundUtil.playSound(this, R.raw.win_sound);
             showResultDialog("You win!");
         } else if (gameState.isWin(TicTacToeAI.COMP)) {
             isGameOver = true;
+            SoundUtil.playSound(this, R.raw.lose_sound);
             showResultDialog("You lose!");
         } else if (gameState.getEmptyCells().isEmpty()) {
             isGameOver = true;
+            SoundUtil.playSound(this, R.raw.draw_sound);
             showResultDialog("It's a draw!");
         }
     }
@@ -106,8 +110,6 @@ public class PlayGameWithAI extends AppCompatActivity {
     }
 
     public void restartMatch() {
-        boolean wasPlayerTurn = isPlayerTurn;
-
         if (gameState.isWin(TicTacToeAI.HUMAN)) {
             isPlayerTurn = true;  // Player starts first if player won
         } else if (gameState.isWin(TicTacToeAI.COMP)) {
@@ -120,12 +122,20 @@ public class PlayGameWithAI extends AppCompatActivity {
         isGameOver = false; // Reset game over flag
         updateBoard(); // Clear the UI board representation
 
+        // If computer is to start, make its move immediately
         if (!isPlayerTurn) {
             TicTacToeAI ai = new TicTacToeAI();
             ai.computerMove(gameState);
             updateBoard();
-            isPlayerTurn = true;  // Set isPlayerTurn to true after AI move
+            SoundUtil.playSound(this, R.raw.click_sound);
+            checkGameOver();
+            isPlayerTurn = true;
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SoundUtil.release(); // Release MediaPlayer resources
+    }
 }
