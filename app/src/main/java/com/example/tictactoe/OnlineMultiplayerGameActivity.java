@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +46,8 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOnlineMultiplayerGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         combinationList.add(new int[]{0, 1, 2});
         combinationList.add(new int[]{3, 4, 5});
@@ -282,7 +285,6 @@ public class OnlineMultiplayerGameActivity extends AppCompatActivity {
                         Boolean codeMakerLeft = snapshot.child("codeMakerLeft").getValue(Boolean.class);
                         if (codeMakerLeft != null && codeMakerLeft && !isCodeMaker) {
                             isActivityTerminated = true;
-                            Toast.makeText(OnlineMultiplayerGameActivity.this, "You won the Game", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(OnlineMultiplayerGameActivity.this, OnlineCodeGeneratorActivity.class);
                             startActivity(intent);
                             finish();

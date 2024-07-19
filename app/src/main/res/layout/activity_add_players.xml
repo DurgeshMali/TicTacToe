@@ -29,9 +29,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ENTER \n PLAYERS NAMES"
+                android:text="ENTER PLAYERS NAMES"
                 android:textAlignment="center"
-                android:textSize="34sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/lavender"/>
 

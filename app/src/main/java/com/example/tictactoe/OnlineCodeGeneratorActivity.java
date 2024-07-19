@@ -2,6 +2,7 @@ package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ public class OnlineCodeGeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_code_generator);
 
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         playerNameEditText = findViewById(R.id.playerName);
         codeEditText = findViewById(R.id.code);
         generateButton = findViewById(R.id.generateButton);
@@ -43,6 +46,12 @@ public class OnlineCodeGeneratorActivity extends AppCompatActivity {
     }
 
     private void generateCode() {
+        if (!NetworkUtil.isNetworkAvailable(this)) {
+            // Proceed with online functionality
+            Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String playerName = playerNameEditText.getText().toString().trim();
         String code = codeEditText.getText().toString().trim();
 
@@ -106,6 +115,12 @@ public class OnlineCodeGeneratorActivity extends AppCompatActivity {
 
 
     private void joinGame() {
+        if (!NetworkUtil.isNetworkAvailable(this)) {
+            // Proceed with online functionality
+            Toast.makeText(this, "No network connection available.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String playerName = playerNameEditText.getText().toString().trim();
         String code = codeEditText.getText().toString().trim();
 

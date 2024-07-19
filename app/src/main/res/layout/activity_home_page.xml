@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="WELCOME TO OUR \n XOXO CHALLENGE"
+                android:text="WELCOME TO OUR XOXO CHALLENGE"
                 android:textAlignment="center"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -40,7 +40,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:id="@+id/onePlayer"
-                android:text="1 - Player"
+                android:text="Single Player"
                 android:textSize="18sp"
                 app:cornerRadius = "20dp"/>
 
@@ -49,7 +49,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:id="@+id/twoPlayers"
-                android:text="2 - Players"
+                android:text="Multiplayer"
                 android:textSize="18sp"
                 app:cornerRadius = "20dp"/>
 
