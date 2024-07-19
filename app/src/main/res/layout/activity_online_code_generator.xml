@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/pagebkg"
-    tools:context=".AddPlayers">
+    tools:context=".OnlineCodeGeneratorActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ENTER \n PLAYERS NAMES"
+                android:text="PLAY WITH YOUR FRIEND"
                 android:textAlignment="center"
                 android:textSize="34sp"
                 android:textStyle="bold"
@@ -38,41 +38,56 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/playerOne"
+                android:id="@+id/playerName"
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:maxLines="1"
                 android:textStyle="italic"
-                android:hint="Enter player one name"
+                android:hint="Enter Your Name"
+                android:textAlignment="center"
                 android:textColorHint="#736D6D"
                 android:textColor="@color/lavender"
-                android:drawableLeft="@drawable/ic_xicon"
                 android:drawablePadding="8dp"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/playerTwo"
+                android:id="@+id/code"
                 android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:maxLines="1"
                 android:textStyle="italic"
-                android:hint="Enter player two name"
+                android:hint="Enter the code"
+                android:textAlignment="center"
                 android:textColorHint="#736D6D"
                 android:textColor="@color/lavender"
-                android:drawableLeft="@drawable/ic_oicon"
                 android:drawablePadding="8dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
-                android:id="@+id/startGameButton"
-                android:text="Start Game"
+                android:id="@+id/generateButton"
+                android:text="Generate Code"
                 android:textSize="18sp"
                 app:cornerRadius = "20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/joinButton"
+                android:text="Join the Game"
+                android:textSize="18sp"
+                app:cornerRadius = "20dp"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressCir"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

@@ -125,12 +125,11 @@ public class MainActivity extends AppCompatActivity {
         if (playerTurn == 1) {
             imageView.setImageResource(R.drawable.ximage);
             if (checkResults()) {
-                ResultDialog resultDialog = new ResultDialog(MainActivity.this, binding.playerOneName.getText().toString()
-                        + " is a Winner!", MainActivity.this);
+                ResultDialog resultDialog = new ResultDialog(MainActivity.this, binding.playerOneName.getText().toString() + " is a Winner!");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
             } else if(totalSelectedBoxes == 9) {
-                ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Match Draw", MainActivity.this);
+                ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Match Draw");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
             } else {
@@ -140,12 +139,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             imageView.setImageResource(R.drawable.oimage);
             if (checkResults()) {
-                ResultDialog resultDialog = new ResultDialog(MainActivity.this, binding.playerTwoName.getText().toString()
-                        + " is a Winner!", MainActivity.this);
+                ResultDialog resultDialog = new ResultDialog(MainActivity.this, binding.playerTwoName.getText().toString() + " is a Winner!");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
             } else if(totalSelectedBoxes == 9) {
-                ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Match Draw", MainActivity.this);
+                ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Match Draw");
                 resultDialog.setCancelable(false);
                 resultDialog.show();
             } else {

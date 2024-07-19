@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/pagebkg"
-    tools:context=".AddPlayers">
+    tools:context=".HomePage">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,48 +29,27 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ENTER \n PLAYERS NAMES"
+                android:text="WELCOME TO OUR \n XOXO CHALLENGE"
                 android:textAlignment="center"
-                android:textSize="34sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/lavender"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/playerOne"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="40dp"
-                android:padding="8dp"
-                android:maxLines="1"
-                android:textStyle="italic"
-                android:hint="Enter player one name"
-                android:textColorHint="#736D6D"
-                android:textColor="@color/lavender"
-                android:drawableLeft="@drawable/ic_xicon"
-                android:drawablePadding="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/playerTwo"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:maxLines="1"
-                android:textStyle="italic"
-                android:hint="Enter player two name"
-                android:textColorHint="#736D6D"
-                android:textColor="@color/lavender"
-                android:drawableLeft="@drawable/ic_oicon"
-                android:drawablePadding="8dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
-                android:id="@+id/startGameButton"
-                android:text="Start Game"
+                android:id="@+id/onePlayer"
+                android:text="1 - Player"
+                android:textSize="18sp"
+                app:cornerRadius = "20dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/twoPlayers"
+                android:text="2 - Players"
                 android:textSize="18sp"
                 app:cornerRadius = "20dp"/>
 
