@@ -42,9 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ResultDialog"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".ResultDialog"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".AddPlayers"
             android:exported="false" />
